@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authentication
+  labels:
+    app: authentication
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: authentication
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 3
+  template:
+    metadata:
+      labels:
+        app: authentication
+    spec:
+      containers:
+        - name: authentication
+          image: abhay4617/authentication
+          ports:
+            - containerPort: 5000
+          envFrom:
+            - configMapRef:
+                name: authentication-configmap
+            - secretRef:
+                name: authentication-secret
