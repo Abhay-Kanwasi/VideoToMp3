@@ -56,8 +56,9 @@ def validate():
         return "Missing credentials", 401
     
     encoded_jwt = encoded_jwt.split(" ")[1]
+
     try:
-        decoded = jwt.decode(encoded_jwt, os.environ.get("SECRET"), algorithms=["HS256"])
+        decoded = jwt.decode(encoded_jwt, os.environ.get("JWT_SECRET"), algorithms=["HS256"])
     except jwt.ExpiredSignatureError:
         return "Token expired", 403
     except jwt.InvalidTokenError:
