@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq
+spec:
+  type: ClusterIP 
+  selector:
+    app: rabbitmq
+  ports:
+    - name: http # for GUI
+      protocol: TCP
+      port: 15672
+      targetPort: 15672
+    - name: amqp # for message transmission
+      protocol: TCP
+      port: 5672
+      targetPort: 5672
